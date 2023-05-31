@@ -4,33 +4,44 @@ import axios from 'axios';
 
 
 function Products() {
-    const [ProdcutsList, setProdcutsList] = useState<ProductInterfaces[]>([])
-
+    const [prodcutsList, setProdcutsList] = useState<ProductInterfaces[]>([])
+    // let AllProduct :ProductInterfaces = []
 
     useEffect(() => {
-        axios.get('https://northwind.vercel.app/api/categories')
-            .then(res => setProdcutsList(res.data))
-            .catch(err => console.log(err))
+        const getData = () => {
+
+            axios.get<ProductInterfaces[]>('https://jsonplaceholder.typicode.com/users')
+                .then(res => setProdcutsList(res.data)
+                )
+                .catch(err => console.log(err))
+        }
+        getData()
 
     }, [])
+    console.log(prodcutsList);
 
     return (<>
         <table>
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>NAME</th>
-                    <th>DESCRIPTION</th>
+                    <th>USERNAME</th>
+                    <th>EMAIL</th>
+                    <th>CITY</th>
+                    <th>STREET</th>
                 </tr>
             </thead>
             <tbody>
                 <>
                     {
-                        ProdcutsList && ProdcutsList.map((e: ProductInterfaces) => {
-                            <tr>
+
+                        prodcutsList.map((e: ProductInterfaces) => {
+                            return <tr>
                                 <td>{e.id}</td>
-                                <td>{e.name}</td>
-                                <td>{e.description}</td>
+                                <td>{e.username}</td>
+                                <td>{e.email}</td>
+                                <td>{e.address?.city}</td>
+                                <td>{e.address?.street}</td>
                             </tr>
                         })
                     }

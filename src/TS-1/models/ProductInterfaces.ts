@@ -1,5 +1,10 @@
 export interface ProductInterfaces {
     id: number,
-    name: string,
-    description: string,
-} 
+    username: string,
+    email: string,
+    address: AddresInterface
+}
+export interface AddresInterface {
+    street: string,
+    city: string
+}
